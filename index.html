@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laura Suttie | Personal Landing Page</title>
+    <meta
+      name="description"
+      content="A personal landing page featuring about, building, speaking, writing, and favorite things."
+    >
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    >
+    <link rel="stylesheet" href="styles.css?v=27">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo" href="#about" aria-label="Home">
+        <img src="laura-photo.jpeg" alt="Laura Suttie">
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#building">Building</a>
+        <a href="#favoriting">Favoriting</a>
+        <a href="#speaking">Speaking</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="about" aria-labelledby="intro-title">
+        <h1 id="intro-title"></h1>
+
+        <aside class="snapshot" aria-label="Quick profile details">
+          <div class="portrait-art">
+            <span class="initials" data-content="initials">LS</span>
+          </div>
+        </aside>
+
+        <div class="hero-copy">
+          <p class="eyebrow intro-label">About</p>
+          <p class="intro" id="intro-text"></p>
+        </div>
+      </section>
+
+      <section class="section" id="building" aria-label="Building">
+        <div class="section-heading">
+          <p class="eyebrow">Building</p>
+        </div>
+        <div class="case-study-grid" id="building-cards"></div>
+      </section>
+
+      <!--
+      <section class="section" id="writing" aria-label="Writing">
+        <div class="section-heading">
+          <p class="eyebrow">Writing</p>
+        </div>
+        <div class="writing-list" id="writing-list"></div>
+      </section>
+      -->
+
+      <section class="section favoriting" id="favoriting" aria-label="Favoriting">
+        <div class="section-heading">
+          <p class="eyebrow">Favoriting</p>
+        </div>
+        <div class="favorites" id="favorites-list"></div>
+      </section>
+
+      <section class="section" id="speaking" aria-label="Speaking">
+        <div class="section-heading">
+          <p class="eyebrow">Speaking</p>
+        </div>
+        <div class="timeline" id="speaking-list"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year">2026</span> <span data-content="name">Laura Suttie</span></p>
+      <div class="footer-links" id="footer-links"></div>
+    </footer>
+
+    <script src="content.js?v=18"></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="render.js?v=22"></script>
+  </body>
+</html>
