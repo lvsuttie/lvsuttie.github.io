@@ -207,13 +207,27 @@ content.favoriting.items.forEach((item) => {
     article.append(mapWrap);
 
     if (window.L) {
+      const worldBounds = [
+        [-85, -180],
+        [85, 180],
+      ];
+      const displayBounds = [
+        [-55, -180],
+        [72, 180],
+      ];
       const leafletMap = L.map(map, {
         scrollWheelZoom: false,
+        zoomSnap: 0.05,
+        zoomDelta: 0.25,
         zoomControl: false,
+        maxBounds: worldBounds,
+        maxBoundsViscosity: 1,
       });
 
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "&copy; OpenStreetMap contributors",
+        noWrap: true,
+        bounds: worldBounds,
       }).addTo(leafletMap);
 
       const markerIcon = L.divIcon({
@@ -224,17 +238,15 @@ content.favoriting.items.forEach((item) => {
         iconAnchor: [8, 22],
       });
 
-      const bounds = [];
       item.places.forEach((place) => {
         const marker = L.marker([place.lat, place.lng], { icon: markerIcon }).addTo(leafletMap);
         marker.on("click", () => showPlace(place, marker.getElement()));
-        bounds.push([place.lat, place.lng]);
       });
 
-      leafletMap.fitBounds(bounds, { padding: [26, 26] });
+      leafletMap.fitBounds(displayBounds, { padding: [0, 0] });
       window.setTimeout(() => {
         leafletMap.invalidateSize();
-        leafletMap.fitBounds(bounds, { padding: [26, 26] });
+        leafletMap.fitBounds(displayBounds, { padding: [0, 0] });
       }, 0);
     } else {
       map.append(createElement("p", "map-fallback", "Map unavailable. Places are listed here."));
