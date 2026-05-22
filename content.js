@@ -24,7 +24,8 @@ window.siteContent = {
           "Impact: Launched from 0→1, contributing to ~10% increase in retention and increased engagement from stablecoin holders.",
         ],
         linkText: "Read case study →",
-        linkUrl: "#",
+        linkUrl:
+          "https://open.substack.com/pub/0xlaurawrites/p/helping-everyday-users-earn-without?r=iaxjt&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
         // Add the image file to this folder, then uncomment the next line.
         // image: "valora-earn.png",
       },
