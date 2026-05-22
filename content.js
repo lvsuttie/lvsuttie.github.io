@@ -1,7 +1,7 @@
 window.siteContent = {
   name: "Laura Suttie",
   initials: "LS",
-  pageTitle: "Laura Suttie | Personal Landing Page",
+  pageTitle: "Laura Suttie",
   introHeading: "Hi, I’m Laura 👋",
   introText: [
     "I’m a product person who’s spent the last few years building consumer fintech and crypto products used by millions of people around the world. I like talking with users, shipping experiments, and making complicated things feel simple and useful.",
