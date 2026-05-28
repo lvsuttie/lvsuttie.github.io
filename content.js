@@ -311,6 +311,17 @@ window.siteContent = {
               },
             ],
           },
+          {
+            name: "Tierra del Fuego, Argentina",
+            lat: -54.8019,
+            lng: -68.3029,
+            links: [
+              {
+                name: "Parque Nacional Tierra del Fuego",
+                url: "https://maps.app.goo.gl/TewVGV2nmSH8pGjJ8",
+              },
+            ],
+          },
         ],
       },
     ],
