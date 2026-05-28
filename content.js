@@ -290,6 +290,28 @@ window.siteContent = {
             ],
           },
           {
+            name: "Bangkok, Thailand",
+            lat: 13.7563,
+            lng: 100.5018,
+            links: [
+              {
+                name: "Flower Market",
+                url: "https://maps.app.goo.gl/FohGC7WMVcixjcNYA",
+              },
+            ],
+          },
+          {
+            name: "Singapore",
+            lat: 1.3521,
+            lng: 103.8198,
+            links: [
+              {
+                name: "Gardens by the Bay",
+                url: "https://maps.app.goo.gl/7wxywTbcLGtyGjCY6",
+              },
+            ],
+          },
+          {
             name: "Porto, Portugal",
             lat: 41.1579,
             lng: -8.6291,
