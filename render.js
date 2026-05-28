@@ -216,10 +216,10 @@ content.favoriting.items.forEach((item) => {
         [72, 180],
       ];
       const leafletMap = L.map(map, {
-        scrollWheelZoom: false,
+        scrollWheelZoom: true,
         zoomSnap: 0.05,
         zoomDelta: 0.25,
-        zoomControl: false,
+        zoomControl: true,
         maxBounds: worldBounds,
         maxBoundsViscosity: 1,
       });
@@ -234,8 +234,8 @@ content.favoriting.items.forEach((item) => {
         className: "leaflet-place-pin",
         html:
           '<svg viewBox="0 0 64 88" aria-hidden="true"><path fill="currentColor" d="M32 0C14.4 0 0 14.4 0 32c0 22.8 32 56 32 56s32-33.2 32-56C64 14.4 49.6 0 32 0Zm0 45a13 13 0 1 1 0-26 13 13 0 0 1 0 26Z"/></svg>',
-        iconSize: [16, 22],
-        iconAnchor: [8, 22],
+        iconSize: [12, 17],
+        iconAnchor: [6, 17],
       });
 
       item.places.forEach((place) => {

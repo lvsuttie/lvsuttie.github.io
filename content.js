@@ -43,14 +43,17 @@ window.siteContent = {
         linkUrl: "#",
       },
       {
-        label: "Selected work",
-        hidden: true,
-        title: "Project Three",
+        label: "Case study",
+        title: "Building a Personal Website with AI",
+        meta: "Personal Project · AI-Assisted Development",
         description:
-          "Add a smaller example that shows range: a prototype, analysis, article, tool, or collaboration.",
-        details: ["Role: Your contribution", "Status: Published, shipped, ongoing, or archived"],
-        linkText: "View project",
-        linkUrl: "#",
+          "Designed and shipped a lightweight personal website using Codex, GitHub Pages, and iterative AI-assisted workflows, focused on creating a space that felt personal, simple, and easy to evolve over time.",
+        details: [
+          "Role: PM, designer, QA, copywriter, and part-time confused engineer.",
+          "Impact: Shipped a real website instead of endlessly tweaking fonts in Figma.",
+        ],
+        linkText: "Read Case Study →",
+        linkUrl: "https://0xlaurawrites.substack.com/p/building-my-personal-website-with",
       },
     ],
   },
@@ -213,6 +216,98 @@ window.siteContent = {
               {
                 name: "Harland Brewing South Park",
                 url: "https://harlandbeer.com/pages/copy-of-south-park-tasting-room-menu",
+              },
+            ],
+          },
+          {
+            name: "Neptune Beach, Florida",
+            lat: 30.3119,
+            lng: -81.3965,
+            links: [
+              {
+                name: "Hotel Palms",
+                url: "https://maps.app.goo.gl/Nmf37g8n3SLZPhJS7",
+              },
+              {
+                name: "Zap Cat",
+                url: "https://maps.app.goo.gl/ocQJBoN1hVGHudhHA",
+              },
+            ],
+          },
+          {
+            name: "Seattle, Washington",
+            lat: 47.6062,
+            lng: -122.3321,
+            links: [
+              {
+                name: "Project 9",
+                url: "https://maps.app.goo.gl/m1mwRffSDGBTWKX18",
+              },
+            ],
+          },
+          {
+            name: "Lagos, Nigeria",
+            lat: 6.5244,
+            lng: 3.3792,
+            links: [
+              {
+                name: "Nike Art Gallery",
+                url: "https://maps.app.goo.gl/qfRuKa5HTGbJt6jYA",
+              },
+            ],
+          },
+          {
+            name: "St Clair, New Zealand",
+            lat: -45.9128,
+            lng: 170.4891,
+            links: [
+              {
+                name: "Long Dog Cafe",
+                url: "https://maps.app.goo.gl/aPHWwpoirspfCiuy9",
+              },
+            ],
+          },
+          {
+            name: "The Catlins, New Zealand",
+            lat: -46.4476,
+            lng: 169.8171,
+            links: [
+              {
+                name: "Nugget Point",
+                url: "https://maps.app.goo.gl/eiuyvX7ik8TKbpxW7",
+              },
+            ],
+          },
+          {
+            name: "Kyoto, Japan",
+            lat: 35.0116,
+            lng: 135.7681,
+            links: [
+              {
+                name: "Philosophers Path",
+                url: "https://maps.app.goo.gl/ERJKuNsC6WKy8NrYA",
+              },
+            ],
+          },
+          {
+            name: "Porto, Portugal",
+            lat: 41.1579,
+            lng: -8.6291,
+            links: [
+              {
+                name: "A Bolina",
+                url: "https://maps.app.goo.gl/eZuL8Jf95NAyWR5z7",
+              },
+            ],
+          },
+          {
+            name: "Warsaw, Poland",
+            lat: 52.2297,
+            lng: 21.0122,
+            links: [
+              {
+                name: "Bar Rascal",
+                url: "https://maps.app.goo.gl/qC4FXbsB7wT78d4V7",
               },
             ],
           },
