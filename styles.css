@@ -371,13 +371,40 @@ dd {
 .case-card.has-image .case-image {
   grid-column: 3;
   grid-row: 1 / span 5;
+  position: relative;
   align-self: stretch;
+  justify-self: end;
   display: grid;
+  width: 100%;
   min-height: 180px;
   place-items: center;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: var(--soft);
+  background: var(--paper);
+}
+
+.case-card.has-image .phone-frame {
+  align-self: center;
+  width: min(100%, 182px);
+  min-height: 0;
+  aspect-ratio: 9 / 18.6;
+  padding: 10px;
+  border-color: var(--ink);
+  border-radius: 30px;
+  background: var(--ink);
+}
+
+.case-card.has-image .phone-frame::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  z-index: 1;
+  width: 52px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--ink);
+  transform: translateX(-50%);
 }
 
 .case-card.has-image .case-image img {
@@ -385,6 +412,16 @@ dd {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.case-card.has-image .empty-image {
+  border-color: transparent;
+}
+
+.case-card.has-image .phone-frame img {
+  padding: 4px;
+  border-radius: 22px;
+  background: var(--paper);
 }
 
 .case-card.has-image .case-link {

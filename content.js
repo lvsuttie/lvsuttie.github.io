@@ -26,8 +26,9 @@ window.siteContent = {
         linkText: "Read case study →",
         linkUrl:
           "https://open.substack.com/pub/0xlaurawrites/p/helping-everyday-users-earn-without?r=iaxjt&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
-        // Add the image file to this folder, then uncomment the next line.
-        // image: "valora-earn.png",
+        image: "Defi image.jpg",
+        imageAlt: "Valora DeFi earning experience screenshot",
+        imageFrame: "phone",
       },
       {
         label: "Case study",
@@ -41,6 +42,7 @@ window.siteContent = {
         ],
         linkText: "Read Case Study →",
         linkUrl: "#",
+        reserveImageSpace: true,
       },
       {
         label: "Case study",
@@ -50,10 +52,12 @@ window.siteContent = {
           "Designed and shipped a lightweight personal website using Codex, GitHub Pages, and iterative AI-assisted workflows, focused on creating a space that felt personal, simple, and easy to evolve over time.",
         details: [
           "Role: PM, designer, QA, copywriter, and part-time confused engineer.",
-          "Impact: Shipped a real website instead of endlessly tweaking fonts in Figma.",
+          "Impact: Shipped this website!",
         ],
         linkText: "Read Case Study →",
         linkUrl: "https://0xlaurawrites.substack.com/p/building-my-personal-website-with",
+        image: "ai-prompt-window.svg",
+        imageAlt: "Minimal AI prompt window illustration",
       },
     ],
   },
@@ -132,7 +136,7 @@ window.siteContent = {
         title: "Places",
         map: true,
         intro:
-          "Not a “best of” list. Just places and things I genuinely love. Tap a pin to explore.",
+          "Not a “best of” list, just things I love. Tap a pin to explore.",
         places: [
           {
             name: "CDMX",

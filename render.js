@@ -78,13 +78,17 @@ content.building.cards
   const article = createElement("article", "case-card");
   article.append(createElement("p", "card-kicker", card.label));
 
-  if (card.image) {
+  if (card.image || card.reserveImageSpace) {
     article.classList.add("has-image");
     const imageWrap = createElement("div", "case-image");
-    const image = createElement("img");
-    image.src = card.image;
-    image.alt = card.imageAlt || `${card.title} image`;
-    imageWrap.append(image);
+    if (card.imageFrame) imageWrap.classList.add(`${card.imageFrame}-frame`);
+    if (!card.image) imageWrap.classList.add("empty-image");
+    if (card.image) {
+      const image = createElement("img");
+      image.src = card.image;
+      image.alt = card.imageAlt || `${card.title} image`;
+      imageWrap.append(image);
+    }
     article.append(imageWrap);
   }
 

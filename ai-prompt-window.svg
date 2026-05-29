@@ -1,0 +1,21 @@
+<svg width="720" height="1080" viewBox="0 0 720 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="1080" fill="white"/>
+  <rect x="96" y="178" width="528" height="724" rx="0" fill="white" stroke="#111111" stroke-width="3"/>
+  <rect x="96" y="178" width="528" height="64" fill="white" stroke="#111111" stroke-width="3"/>
+  <circle cx="126" cy="210" r="7" fill="#111111"/>
+  <circle cx="150" cy="210" r="7" fill="#111111"/>
+  <circle cx="174" cy="210" r="7" fill="#111111"/>
+  <text x="126" y="319" fill="#111111" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Prompt</text>
+  <rect x="126" y="350" width="468" height="172" rx="0" fill="white" stroke="#111111" stroke-width="2"/>
+  <text x="154" y="402" fill="#111111" font-family="Inter, Arial, sans-serif" font-size="22">Can you help me build a</text>
+  <text x="154" y="438" fill="#111111" font-family="Inter, Arial, sans-serif" font-size="22">simple personal website?</text>
+  <text x="154" y="474" fill="#666666" font-family="Inter, Arial, sans-serif" font-size="20">Make it minimal, personal,</text>
+  <text x="154" y="506" fill="#666666" font-family="Inter, Arial, sans-serif" font-size="20">and easy to keep changing.</text>
+  <text x="126" y="603" fill="#111111" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Response</text>
+  <line x1="126" y1="646" x2="552" y2="646" stroke="#111111" stroke-width="3"/>
+  <line x1="126" y1="696" x2="594" y2="696" stroke="#111111" stroke-width="3"/>
+  <line x1="126" y1="746" x2="500" y2="746" stroke="#111111" stroke-width="3"/>
+  <line x1="126" y1="796" x2="570" y2="796" stroke="#111111" stroke-width="3"/>
+  <rect x="126" y="826" width="172" height="38" rx="0" fill="#111111"/>
+  <text x="154" y="852" fill="white" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">ship it</text>
+</svg>
