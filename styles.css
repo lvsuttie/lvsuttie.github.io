@@ -771,11 +771,13 @@ footer p {
   }
 
   .case-card {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
   }
 
   .case-card.has-image {
-    grid-template-columns: 1fr;
+    grid-template-columns: none;
   }
 
   .places-layout {
@@ -791,12 +793,25 @@ footer p {
     grid-column: 1;
   }
 
+  .case-card h3,
+  .case-card p,
+  .case-card ul,
+  .case-card a,
+  .card-kicker {
+    width: 100%;
+  }
+
   .card-kicker {
     grid-row: auto;
   }
 
+  .case-card .case-link {
+    order: 10;
+  }
+
   .case-card.has-image .case-image {
     grid-row: auto;
+    order: 20;
     justify-self: start;
     width: min(100%, 240px);
     min-height: 220px;
