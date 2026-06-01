@@ -4,8 +4,8 @@ window.siteContent = {
   pageTitle: "Laura Suttie",
   introHeading: "Hi, I’m Laura 👋",
   introText: [
-    "I’m a product person who’s spent the last few years building consumer fintech and crypto products used by millions of people around the world. I like talking with users, shipping experiments, and making complicated things feel simple and useful.",
-    "Outside of work, I’m a new mom, an over-researcher, getting back into running, and currently very interested in good fruit, long walks, and making my baby laugh.",
+    "I’m a product person who’s spent the last few years building consumer fintech and crypto products used by millions of people around the world. I like talking with users, experimenting, learning what works (and what doesn't), and making complicated things feel simple and useful.",
+    "Outside of work, I’m a new mom, getting back into running, and generally happiest when I’m learning something new. Lately, that's meant figuring out baby sleep, diving into AI and agents, and trying to make my baby laugh.",
     "This site is part portfolio, part experiment, part figuring out this new world of AI.",
     "I am happy you're here.",
   ],
@@ -32,6 +32,7 @@ window.siteContent = {
       },
       {
         label: "Case study",
+        hidden: true,
         title: "Making Student Loan Applications Feel Less Intimidating",
         meta: "Credible · Consumer Fintech / Lending",
         description:
@@ -52,7 +53,7 @@ window.siteContent = {
           "Designed and shipped a lightweight personal website using Codex, GitHub Pages, and iterative AI-assisted workflows, focused on creating a space that felt personal, simple, and easy to evolve over time.",
         details: [
           "Role: PM, designer, QA, copywriter, and part-time confused engineer.",
-          "Impact: Shipped this website!",
+          "Impact: Shipped this website! Lesson that AI lowers the barrier to building, but judgment remains the bottleneck.",
         ],
         linkText: "Read Case Study →",
         linkUrl: "https://0xlaurawrites.substack.com/p/building-my-personal-website-with",
