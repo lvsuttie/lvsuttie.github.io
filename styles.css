@@ -365,7 +365,7 @@ dd {
 }
 
 .case-card.has-image {
-  grid-template-columns: minmax(90px, 0.16fr) minmax(0, 1fr) minmax(160px, 0.34fr);
+  grid-template-columns: minmax(76px, 0.13fr) minmax(0, 1fr) minmax(280px, 0.58fr);
 }
 
 .case-card.has-image .case-image {
@@ -379,12 +379,13 @@ dd {
   min-height: 180px;
   place-items: center;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 0;
   background: var(--paper);
 }
 
 .case-card.has-image .phone-frame {
   align-self: center;
+  justify-self: center;
   width: min(100%, 182px);
   min-height: 0;
   aspect-ratio: 9 / 18.6;
@@ -422,6 +423,7 @@ dd {
   padding: 4px;
   border-radius: 22px;
   background: var(--paper);
+  object-fit: contain;
 }
 
 .case-card.has-image .case-link {
