@@ -81,6 +81,24 @@ window.siteContent = {
     ],
   },
 
+  workWithMe: {
+    intro:
+      "I'm available for select advisory and consulting projects. Whether you're launching something new, improving conversion, or figuring out what to build next, I'd love to hear about it.",
+    areasIntro: "Areas where I can help:",
+    areas: [
+      "Product strategy and roadmap development",
+      "Consumer fintech and crypto products",
+      "Growth, onboarding, and activation",
+      "User research and product discovery",
+      "0→1 product development",
+      "Product leadership and team building",
+    ],
+    closing: "",
+    contactLabel: "Get in touch",
+    contactType: "tally",
+    tallyFormId: "Bz0MbQ",
+  },
+
   writing: {
     items: [
       {

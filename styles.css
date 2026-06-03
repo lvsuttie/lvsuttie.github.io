@@ -458,6 +458,7 @@ dd {
 
 .timeline article,
 .writing-list a,
+.work-with-me article,
 .favorites article {
   padding: 20px;
   border: 1px solid var(--line);
@@ -479,10 +480,58 @@ dd {
 }
 
 .timeline p,
+.work-with-me p,
 .favorites p,
 .section-note {
   margin: 8px 0 0;
   color: var(--muted);
+}
+
+.work-with-me article {
+  display: grid;
+  gap: 14px;
+}
+
+.work-with-me p {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
+.work-with-me ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.work-with-me li {
+  color: var(--muted);
+}
+
+.work-areas-intro {
+  color: var(--ink);
+}
+
+.work-contact {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 8px 14px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  justify-self: start;
+  color: var(--ink);
+  cursor: pointer;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-size: 0.9rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.work-contact:disabled {
+  cursor: default;
 }
 
 .section-note {

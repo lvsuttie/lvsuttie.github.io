@@ -128,6 +128,51 @@ content.speaking.items.forEach((item) => {
   speakingList.append(article);
 });
 
+const workWithMeContent = document.getElementById("work-with-me-content");
+if (workWithMeContent && content.workWithMe) {
+  const article = createElement("article");
+  article.append(createElement("p", null, content.workWithMe.intro));
+  article.append(createElement("p", "work-areas-intro", content.workWithMe.areasIntro));
+
+  const areas = createElement("ul");
+  content.workWithMe.areas.forEach((area) => areas.append(createElement("li", null, area)));
+  article.append(areas);
+
+  if (content.workWithMe.closing) {
+    article.append(createElement("p", null, content.workWithMe.closing));
+  }
+
+  let contact;
+  if (content.workWithMe.contactType === "tally") {
+    contact = createElement("button", "work-contact", content.workWithMe.contactLabel);
+    contact.type = "button";
+    if (content.workWithMe.tallyFormId) {
+      contact.dataset.tallyOpen = content.workWithMe.tallyFormId;
+      contact.dataset.tallyLayout = "modal";
+      contact.dataset.tallyWidth = "520";
+      contact.dataset.tallyEmojiText = "👋";
+      contact.dataset.tallyEmojiAnimation = "wave";
+      contact.dataset.tallyAutoClose = "0";
+      contact.dataset.tallyFormEventsForwarding = "1";
+    } else {
+      contact.disabled = true;
+      contact.title = "Add a Tally form ID to activate this button.";
+    }
+  } else if (content.workWithMe.contactUrl) {
+    contact = createElement("a", "work-contact", content.workWithMe.contactLabel);
+    contact.href = content.workWithMe.contactUrl;
+    addExternalBehavior(contact);
+  } else {
+    contact = createElement("button", "work-contact", content.workWithMe.contactLabel);
+    contact.type = "button";
+    contact.disabled = true;
+  }
+  article.append(contact);
+
+  workWithMeContent.append(article);
+  if (window.Tally) window.Tally.loadEmbeds();
+}
+
 const writingList = document.getElementById("writing-list");
 if (writingList) {
   content.writing.items.forEach((item) => {
