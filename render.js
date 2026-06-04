@@ -226,6 +226,7 @@ content.favoriting.items.forEach((item) => {
 
   if (item.map && item.places) {
     article.classList.add("places-card");
+    const usePopupMap = item.mapStyle === "popup";
     const map = createElement("div", "places-map");
     const panel = createElement("div", "place-panel");
 
@@ -251,8 +252,32 @@ content.favoriting.items.forEach((item) => {
       if (activeMarker) activeMarker.classList.add("is-active");
     }
 
+    function createPlacePopup(place) {
+      const popup = createElement("div", "place-popup");
+      popup.append(createElement("h4", null, place.name));
+      if (place.note) popup.append(createElement("p", null, place.note));
+
+      if (place.links) {
+        const list = createElement("ul");
+        place.links.forEach((entry) => {
+          const listItem = createElement("li");
+          listItem.append(renderEntryLink(entry));
+          if (entry.note) listItem.append(createElement("small", null, entry.note));
+          list.append(listItem);
+        });
+        popup.append(list);
+      }
+
+      return popup;
+    }
+
     const mapWrap = createElement("div", "places-layout");
-    mapWrap.append(map, panel);
+    if (usePopupMap) {
+      mapWrap.classList.add("popup-map-layout");
+      mapWrap.append(map);
+    } else {
+      mapWrap.append(map, panel);
+    }
     article.append(mapWrap);
 
     if (window.L) {
@@ -261,14 +286,19 @@ content.favoriting.items.forEach((item) => {
         [85, 180],
       ];
       const displayBounds = [
-        [-55, -180],
-        [72, 180],
+        [-68, -180],
+        [80, 180],
       ];
       const leafletMap = L.map(map, {
-        scrollWheelZoom: true,
+        scrollWheelZoom: false,
+        dragging: false,
+        doubleClickZoom: false,
+        touchZoom: false,
+        boxZoom: false,
+        keyboard: false,
         zoomSnap: 0.05,
         zoomDelta: 0.25,
-        zoomControl: true,
+        zoomControl: false,
         maxBounds: worldBounds,
         maxBoundsViscosity: 1,
       });
@@ -289,7 +319,21 @@ content.favoriting.items.forEach((item) => {
 
       item.places.forEach((place) => {
         const marker = L.marker([place.lat, place.lng], { icon: markerIcon }).addTo(leafletMap);
-        marker.on("click", () => showPlace(place, marker.getElement()));
+        if (usePopupMap) {
+          marker.bindPopup(createPlacePopup(place), {
+            closeButton: true,
+            maxWidth: 240,
+            minWidth: 180,
+            autoPanPadding: [18, 18],
+            className: "place-leaflet-popup",
+          });
+          marker.on("mouseover", () => marker.openPopup());
+          marker.on("click", () => marker.openPopup());
+          marker.on("popupopen", () => marker.getElement()?.classList.add("is-active"));
+          marker.on("popupclose", () => marker.getElement()?.classList.remove("is-active"));
+        } else {
+          marker.on("click", () => showPlace(place, marker.getElement()));
+        }
       });
 
       leafletMap.fitBounds(displayBounds, { padding: [0, 0] });
@@ -302,7 +346,13 @@ content.favoriting.items.forEach((item) => {
       item.places.forEach((place) => {
         const button = createElement("button", "place-marker", place.name);
         button.type = "button";
-        button.addEventListener("click", () => showPlace(place, button));
+        if (usePopupMap) {
+          button.addEventListener("click", () => {
+            map.append(createPlacePopup(place));
+          });
+        } else {
+          button.addEventListener("click", () => showPlace(place, button));
+        }
         map.append(button);
       });
     }

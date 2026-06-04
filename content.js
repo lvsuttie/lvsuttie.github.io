@@ -91,10 +91,9 @@ window.siteContent = {
       "Growth, onboarding, and activation",
       "User research and product discovery",
       "0→1 product development",
-      "Product leadership and team building",
     ],
     closing: "",
-    contactLabel: "Get in touch",
+    contactLabel: "Contact Me",
     contactType: "tally",
     tallyFormId: "Bz0MbQ",
   },
@@ -154,11 +153,12 @@ window.siteContent = {
       {
         title: "Places",
         map: true,
+        mapStyle: "popup",
         intro:
-          "Not a “best of” list, just things I love. Tap a pin to explore.",
+          "Not a “best of” list, just things I love. Hover or tap a pin to explore.",
         places: [
           {
-            name: "CDMX",
+            name: "Ciudad de Mexico, Mexico",
             // note: "Mexico City",
             lat: 19.4326,
             lng: -99.1332,
@@ -201,7 +201,6 @@ window.siteContent = {
               },
               {
                 name: "Masa Madre",
-                note: "Quite possibly the best bread I’ve had.",
                 url: "https://maps.app.goo.gl/fW3kae6ZPJ6Hf2Hs6",
               },
               {
@@ -211,7 +210,7 @@ window.siteContent = {
             ],
           },
           {
-            name: "San Francisco",
+            name: "San Francisco, California",
             // note: "Lived there for many years.",
             lat: 37.7749,
             lng: -122.4194,
@@ -227,7 +226,7 @@ window.siteContent = {
             ],
           },
           {
-            name: "San Diego",
+            name: "San Diego, California",
             // note: "Grew up there.",
             lat: 32.7157,
             lng: -117.1611,
@@ -324,7 +323,7 @@ window.siteContent = {
             ],
           },
           {
-            name: "Singapore",
+            name: "Singapore, Singapore",
             lat: 1.3521,
             lng: 103.8198,
             links: [
