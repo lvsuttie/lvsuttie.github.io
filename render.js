@@ -324,10 +324,12 @@ content.favoriting.items.forEach((item) => {
             closeButton: true,
             maxWidth: 240,
             minWidth: 180,
-            autoPanPadding: [18, 18],
+            autoPan: false,
             className: "place-leaflet-popup",
           });
-          marker.on("mouseover", () => marker.openPopup());
+          if (window.matchMedia("(hover: hover)").matches) {
+            marker.on("mouseover", () => marker.openPopup());
+          }
           marker.on("click", () => marker.openPopup());
           marker.on("popupopen", () => marker.getElement()?.classList.add("is-active"));
           marker.on("popupclose", () => marker.getElement()?.classList.remove("is-active"));
