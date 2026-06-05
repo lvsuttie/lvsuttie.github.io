@@ -291,6 +291,12 @@ content.favoriting.items.forEach((item) => {
         [-68, -180],
         [80, 180],
       ];
+      const mobileDisplayBounds = [
+        [-58, -180],
+        [80, 180],
+      ];
+      const isMobileMap = window.matchMedia("(max-width: 560px)").matches;
+      const activeDisplayBounds = isMobileMap ? mobileDisplayBounds : displayBounds;
       const leafletMap = L.map(map, {
         scrollWheelZoom: false,
         dragging: false,
@@ -324,8 +330,8 @@ content.favoriting.items.forEach((item) => {
         if (usePopupMap) {
           marker.bindPopup(createPlacePopup(place), {
             closeButton: true,
-            maxWidth: 240,
-            minWidth: 180,
+            maxWidth: isMobileMap ? 190 : 240,
+            minWidth: isMobileMap ? 145 : 180,
             autoPan: false,
             closeOnClick: true,
             autoClose: true,
@@ -351,10 +357,10 @@ content.favoriting.items.forEach((item) => {
         });
       }
 
-      leafletMap.fitBounds(displayBounds, { padding: [0, 0] });
+      leafletMap.fitBounds(activeDisplayBounds, { padding: [0, 0] });
       window.setTimeout(() => {
         leafletMap.invalidateSize();
-        leafletMap.fitBounds(displayBounds, { padding: [0, 0] });
+        leafletMap.fitBounds(activeDisplayBounds, { padding: [0, 0] });
       }, 0);
     } else {
       map.append(createElement("p", "map-fallback", "Map unavailable. Places are listed here."));
