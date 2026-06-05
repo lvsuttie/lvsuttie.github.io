@@ -210,7 +210,9 @@ content.favoriting.items.forEach((item) => {
       const entryData = typeof entry === "string" ? { name: entry } : entry;
 
       if (item.title === "Books" && entryData.note) {
-        listItem.append(createElement("span", null, `${entryData.name} by ${entryData.note}`));
+        list.classList.add("book-list");
+        listItem.append(createElement("span", "book-title", entryData.name));
+        listItem.append(createElement("span", "book-author", entryData.note));
       } else {
         listItem.append(renderEntryLink(entryData));
       }
@@ -325,18 +327,29 @@ content.favoriting.items.forEach((item) => {
             maxWidth: 240,
             minWidth: 180,
             autoPan: false,
+            closeOnClick: true,
+            autoClose: true,
             className: "place-leaflet-popup",
           });
           if (window.matchMedia("(hover: hover)").matches) {
             marker.on("mouseover", () => marker.openPopup());
           }
-          marker.on("click", () => marker.openPopup());
+          marker.on("click", () => {
+            leafletMap.closePopup();
+            marker.openPopup();
+          });
           marker.on("popupopen", () => marker.getElement()?.classList.add("is-active"));
           marker.on("popupclose", () => marker.getElement()?.classList.remove("is-active"));
         } else {
           marker.on("click", () => showPlace(place, marker.getElement()));
         }
       });
+
+      if (usePopupMap) {
+        leafletMap.on("click", () => {
+          leafletMap.closePopup();
+        });
+      }
 
       leafletMap.fitBounds(displayBounds, { padding: [0, 0] });
       window.setTimeout(() => {

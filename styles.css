@@ -598,6 +598,41 @@ dd {
   font-size: 0.92rem;
 }
 
+.book-list {
+  gap: 2px;
+  max-width: none;
+  padding-left: 0;
+  list-style: none;
+}
+
+.book-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.045);
+}
+
+.book-list li:last-child {
+  border-bottom: 0;
+}
+
+.book-title {
+  color: var(--ink);
+  font-size: 0.94rem;
+}
+
+.book-author {
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-style: italic;
+  text-align: left;
+}
+
+.book-author::before {
+  content: "by ";
+}
+
 .places-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.7fr);
@@ -627,6 +662,13 @@ dd {
 .place-leaflet-popup .leaflet-popup-content {
   width: min(220px, 70vw);
   margin: 14px 16px;
+}
+
+.place-leaflet-popup .leaflet-popup-close-button {
+  width: 28px;
+  height: 28px;
+  font-size: 20px;
+  line-height: 28px;
 }
 
 .place-popup {
@@ -903,6 +945,15 @@ footer p {
 
   .places-layout {
     grid-template-columns: 1fr;
+  }
+
+  .book-list li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .book-author {
+    text-align: left;
   }
 
   .case-card h3,
