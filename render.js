@@ -421,11 +421,18 @@ content.favoriting.items.forEach((item) => {
 });
 
 const footerLinks = document.getElementById("footer-links");
-/*
-content.links.forEach((item) => {
-  const link = createElement("a", null, item.label);
-  link.href = item.url;
-  addExternalBehavior(link);
-  footerLinks.append(link);
-});
-*/
+if (footerLinks && Array.isArray(content.links)) {
+  content.links.forEach((item) => {
+    const link = createElement("a", "social-link");
+    link.href = item.url;
+    link.setAttribute("aria-label", item.label === "X" ? "Laura Suttie on X" : item.label);
+    addExternalBehavior(link);
+    if (item.label === "X") {
+      link.innerHTML =
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2h3.3l-7.2 8.2L23.5 22h-6.6l-5.2-6.8L5.8 22H2.5l7.7-8.8L2 2h6.8l4.7 6.2L18.9 2Zm-1.2 17.9h1.8L7.8 4H5.9l11.8 15.9Z"/></svg>';
+    } else {
+      link.textContent = item.label;
+    }
+    footerLinks.append(link);
+  });
+}

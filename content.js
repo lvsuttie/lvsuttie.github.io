@@ -405,5 +405,10 @@ window.siteContent = {
     ],
   },
 
-  links: [],
+  links: [
+    {
+      label: "X",
+      url: "https://x.com/4thelaur",
+    },
+  ],
 };
