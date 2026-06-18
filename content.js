@@ -41,7 +41,7 @@ window.siteContent = {
           "Role: Owned the end-to-end cosigner experience across research, funnel optimization, UX improvements, and experimentation.",
           "Impact: Increased successful cosigner additions by ~25%, contributing to improved funnel conversion and higher funded loan volume.",
         ],
-        linkText: "Read Case Study →",
+        linkText: "Read case study →",
         linkUrl: "#",
         reserveImageSpace: true,
       },
@@ -55,7 +55,7 @@ window.siteContent = {
           "Role: PM, designer, QA, copywriter, and part-time confused engineer.",
           "Impact: Shipped this website! Lesson that AI lowers the barrier to building, but judgment remains the bottleneck.",
         ],
-        linkText: "Read Case Study →",
+        linkText: "Read case study →",
         linkUrl: "https://0xlaurawrites.substack.com/p/building-my-personal-website-with",
         image: "ai-website-laptop-crop.png",
         imageAlt: "Laptop displaying Laura Suttie's personal website",
@@ -70,6 +70,7 @@ window.siteContent = {
         event: "StableSummit EthCC",
         title: "Does Crypto UX have to be so bad?",
         url: "https://www.youtube.com/watch?app=desktop&v=tphRb1mB7YU",
+        thumbnail: "https://img.youtube.com/vi/tphRb1mB7YU/hqdefault.jpg",
       },
       {
         date: "2024",
@@ -77,14 +78,15 @@ window.siteContent = {
         title:
           "Break Up with your Bad UX! — Toxic Cycles, Design Challenges + IRL Implications",
         url: "https://youtu.be/W_qvPRbk3MI?si=6uDSvZ9TYEBxhB3a&t=1",
+        thumbnail: "https://img.youtube.com/vi/W_qvPRbk3MI/hqdefault.jpg",
       },
     ],
   },
 
   workWithMe: {
     intro:
-      "I'm available for select advisory and consulting projects. Whether you're launching something new, improving conversion, or figuring out what to build next, I'd love to hear about it.",
-    areasIntro: "Areas where I can help:",
+      "I'm available for select advisory and consulting projects.",
+    areasIntro: "I can help with",
     areas: [
       "Product strategy and roadmap development",
       "Consumer fintech and crypto products",
@@ -93,7 +95,7 @@ window.siteContent = {
       "0→1 product development",
     ],
     closing: "",
-    contactLabel: "Contact Me",
+    contactLabel: "Get in Touch",
     contactType: "tally",
     tallyFormId: "Bz0MbQ",
   },
@@ -119,34 +121,66 @@ window.siteContent = {
   },
 
   favoriting: {
-    intro: "These are a few of my favorite things.",
+    intro: "",
     items: [
       {
         title: "Books",
+        intro: "These are just a few of my favorites.",
         entries: [
           {
             name: "A Gentleman in Moscow",
             note: "Amor Towles",
+            cover: "https://covers.openlibrary.org/b/isbn/9780143110439-L.jpg",
           },
           {
             name: "A Tree Grows in Brooklyn",
             note: "Betty Smith",
+            cover: "https://covers.openlibrary.org/b/isbn/9780061120077-L.jpg",
           },
           {
             name: "The Alchemist",
             note: "Paulo Coelho",
+            cover: "https://covers.openlibrary.org/b/isbn/9780062315007-L.jpg",
           },
           {
             name: "East of Eden",
             note: "John Steinbeck",
+            cover: "https://covers.openlibrary.org/b/isbn/9780140186390-L.jpg",
           },
           {
             name: "American Kingpin",
             note: "Nick Bilton",
+            cover: "https://covers.openlibrary.org/b/isbn/9781591848141-L.jpg",
           },
           {
             name: "Holes",
             note: "Louis Sachar",
+            cover: "https://covers.openlibrary.org/b/isbn/9780440414803-L.jpg",
+          },
+          {
+            name: "All the Light We Cannot See",
+            note: "Anthony Doerr",
+            cover: "https://covers.openlibrary.org/b/isbn/9781501173219-L.jpg",
+          },
+          {
+            name: "Eleanor & Park",
+            note: "Rainbow Rowell",
+            cover: "https://covers.openlibrary.org/b/isbn/9781250012579-L.jpg",
+          },
+          {
+            name: "The Vanishing Half",
+            note: "Brit Bennett",
+            cover: "https://covers.openlibrary.org/b/isbn/9780525536291-L.jpg",
+          },
+          {
+            name: "The Book Thief",
+            note: "Markus Zusak",
+            cover: "https://covers.openlibrary.org/b/isbn/9780375842207-L.jpg",
+          },
+          {
+            name: "Americanah",
+            note: "Chimamanda Ngozi Adichie",
+            cover: "https://covers.openlibrary.org/b/isbn/9780307455925-L.jpg",
           },
         ],
       },

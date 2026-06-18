@@ -113,7 +113,23 @@ content.building.cards
 const speakingList = document.getElementById("speaking-list");
 content.speaking.items.forEach((item) => {
   const article = createElement("article");
-  article.append(createElement("span", null, `${item.event} · ${item.date}`));
+  if (item.thumbnail && item.url) {
+    article.classList.add("has-thumbnail");
+    const mediaLink = createElement("a", "talk-thumbnail");
+    mediaLink.href = item.url;
+    addExternalBehavior(mediaLink);
+    mediaLink.setAttribute("aria-label", `Watch ${item.title}`);
+
+    const image = createElement("img");
+    image.src = item.thumbnail;
+    image.alt = `${item.title} YouTube preview`;
+    image.loading = "lazy";
+    mediaLink.append(image);
+    article.append(mediaLink);
+  }
+
+  const copy = createElement("div", "talk-copy");
+  copy.append(createElement("span", null, `${item.event} · ${item.date}`));
   const heading = createElement("h3");
   if (item.url) {
     const link = createElement("a", null, item.title);
@@ -123,24 +139,28 @@ content.speaking.items.forEach((item) => {
   } else {
     heading.textContent = item.title;
   }
-  article.append(heading);
-  if (item.description) article.append(createElement("p", null, item.description));
+  copy.append(heading);
+  if (item.description) copy.append(createElement("p", null, item.description));
+  article.append(copy);
   speakingList.append(article);
 });
 
 const workWithMeContent = document.getElementById("work-with-me-content");
 if (workWithMeContent && content.workWithMe) {
   const article = createElement("article");
-  article.append(createElement("p", null, content.workWithMe.intro));
-  article.append(createElement("p", "work-areas-intro", content.workWithMe.areasIntro));
+  const invitation = createElement("div", "work-invitation");
+  const areasPanel = createElement("div", "work-areas");
 
-  const areas = createElement("ul");
-  content.workWithMe.areas.forEach((area) => areas.append(createElement("li", null, area)));
-  article.append(areas);
+  invitation.append(createElement("p", "work-lede", content.workWithMe.intro));
 
   if (content.workWithMe.closing) {
-    article.append(createElement("p", null, content.workWithMe.closing));
+    invitation.append(createElement("p", null, content.workWithMe.closing));
   }
+
+  areasPanel.append(createElement("p", "work-areas-intro", content.workWithMe.areasIntro));
+  const areas = createElement("ul");
+  content.workWithMe.areas.forEach((area) => areas.append(createElement("li", null, area)));
+  areasPanel.append(areas);
 
   let contact;
   if (content.workWithMe.contactType === "tally") {
@@ -167,7 +187,8 @@ if (workWithMeContent && content.workWithMe) {
     contact.type = "button";
     contact.disabled = true;
   }
-  article.append(contact);
+  invitation.append(contact);
+  article.append(invitation, areasPanel);
 
   workWithMeContent.append(article);
   if (window.Tally) window.Tally.loadEmbeds();
@@ -210,9 +231,20 @@ content.favoriting.items.forEach((item) => {
       const entryData = typeof entry === "string" ? { name: entry } : entry;
 
       if (item.title === "Books" && entryData.note) {
-        list.classList.add("book-list");
-        listItem.append(createElement("span", "book-title", entryData.name));
-        listItem.append(createElement("span", "book-author", entryData.note));
+        list.classList.add("book-list", "book-carousel");
+        if (entryData.cover) {
+          const cover = createElement("img");
+          cover.src = entryData.cover;
+          cover.alt = `${entryData.name} book cover`;
+          cover.loading = "lazy";
+          const coverFrame = createElement("div", "book-cover");
+          coverFrame.append(cover);
+          listItem.append(coverFrame);
+        }
+        const meta = createElement("div", "book-meta");
+        meta.append(createElement("span", "book-title", entryData.name));
+        meta.append(createElement("span", "book-author", entryData.note));
+        listItem.append(meta);
       } else {
         listItem.append(renderEntryLink(entryData));
       }
@@ -223,7 +255,13 @@ content.favoriting.items.forEach((item) => {
 
       list.append(listItem);
     });
-    article.append(list);
+    if (item.title === "Books") {
+      const carousel = createElement("div", "book-carousel-wrap");
+      carousel.append(list);
+      article.append(carousel);
+    } else {
+      article.append(list);
+    }
   }
 
   if (item.map && item.places) {
