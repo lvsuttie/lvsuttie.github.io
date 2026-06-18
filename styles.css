@@ -1191,9 +1191,27 @@ footer p {
   .case-card.has-image .case-image {
     grid-row: auto;
     order: 20;
-    justify-self: start;
-    width: min(100%, 240px);
-    min-height: 220px;
+    justify-self: center;
+    width: min(100%, 220px);
+    min-height: 0;
+  }
+
+  .case-card.has-image .phone-frame {
+    width: min(100%, 150px);
+    padding: 8px;
+    border-radius: 26px;
+  }
+
+  .case-card.has-image .phone-frame::before {
+    top: 7px;
+    width: 42px;
+    height: 8px;
+  }
+
+  .case-card.has-image .phone-frame img {
+    padding: 3px;
+    border-radius: 20px;
+    clip-path: inset(0 round 20px);
   }
 
   .case-card.has-image .empty-image {
