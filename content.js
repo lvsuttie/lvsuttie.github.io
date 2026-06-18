@@ -1,7 +1,7 @@
 window.siteContent = {
   name: "Laura Suttie",
   initials: "LS",
-  pageTitle: "Laura Suttie",
+  pageTitle: "Laura Suttie | Product Leader in Fintech & Consumer Products",
   introHeading: "Hi, I’m Laura 👋",
   introText: [
     "I’m a product person who’s spent the last few years building consumer fintech and crypto products used by millions of people around the world. I like talking with users, experimenting, learning what works (and what doesn't), and making complicated things feel simple and useful.",
@@ -405,18 +405,5 @@ window.siteContent = {
     ],
   },
 
-  links: [
-    {
-      label: "Email",
-      url: "mailto:you@example.com",
-    },
-    {
-      label: "GitHub",
-      url: "https://github.com/yourusername",
-    },
-    {
-      label: "LinkedIn",
-      url: "https://www.linkedin.com/in/yourusername",
-    },
-  ],
+  links: [],
 };
