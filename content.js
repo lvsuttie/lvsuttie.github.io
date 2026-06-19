@@ -195,7 +195,7 @@ window.siteContent = {
         map: true,
         mapStyle: "popup",
         intro:
-          "Not a “best of” list, just things I love. Hover or tap a pin to explore.",
+          "Places I’ve loved, returned to, or still think about.",
         places: [
           {
             name: "Ciudad de Mexico, Mexico",

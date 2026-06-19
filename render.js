@@ -320,12 +320,14 @@ content.favoriting.items.forEach((item) => {
       if (place.note) popup.append(createElement("p", null, place.note));
 
       if (place.links) {
-        const list = createElement("ul");
+        const list = createElement("div", "place-popup-links");
         place.links.forEach((entry) => {
-          const listItem = createElement("li");
-          listItem.append(renderEntryLink(entry));
-          if (entry.note) listItem.append(createElement("small", null, entry.note));
-          list.append(listItem);
+          const link = renderEntryLink({
+            ...entry,
+            name: `${entry.name} →`,
+          });
+          list.append(link);
+          if (entry.note) list.append(createElement("small", null, entry.note));
         });
         popup.append(list);
       }
@@ -379,19 +381,63 @@ content.favoriting.items.forEach((item) => {
 
       const markerIcon = L.divIcon({
         className: "leaflet-place-pin",
-        html:
-          '<svg viewBox="0 0 64 88" aria-hidden="true"><path fill="currentColor" d="M32 0C14.4 0 0 14.4 0 32c0 22.8 32 56 32 56s32-33.2 32-56C64 14.4 49.6 0 32 0Zm0 45a13 13 0 1 1 0-26 13 13 0 0 1 0 26Z"/></svg>',
-        iconSize: [12, 17],
-        iconAnchor: [6, 17],
+        html: '<span class="place-pin-dot" aria-hidden="true"></span>',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
       });
 
+      const popupMarkers = [];
+      let activePopupMarker = null;
+
+      function getPlaceLabel(place) {
+        return `View places in ${place.name.replace(/,.*$/, "")}.`;
+      }
+
+      function getMarkerPlace(marker) {
+        return popupMarkers.find(({ marker: placeMarker }) => placeMarker === marker)?.place;
+      }
+
+      function setMarkerAccessibility(marker, place) {
+        const element = marker.getElement();
+        if (!element) return;
+        element.setAttribute("aria-label", getPlaceLabel(place));
+      }
+
+      function setSelectedMarker(marker) {
+        popupMarkers.forEach(({ marker: placeMarker }) => {
+          const element = placeMarker.getElement();
+          element?.classList.remove("is-active");
+          element?.removeAttribute("aria-current");
+        });
+        activePopupMarker = marker;
+        const place = getMarkerPlace(marker);
+        if (place) setMarkerAccessibility(marker, place);
+        const element = marker.getElement();
+        element?.classList.add("is-active");
+        element?.setAttribute("aria-current", "true");
+      }
+
+      function clearSelectedMarker(marker) {
+        if (activePopupMarker !== marker) return;
+        const element = marker.getElement();
+        element?.classList.remove("is-active");
+        element?.removeAttribute("aria-current");
+        activePopupMarker = null;
+      }
+
       item.places.forEach((place) => {
-        const marker = L.marker([place.lat, place.lng], { icon: markerIcon }).addTo(leafletMap);
+        const marker = L.marker([place.lat, place.lng], {
+          icon: markerIcon,
+          title: getPlaceLabel(place),
+          alt: getPlaceLabel(place),
+        }).addTo(leafletMap);
+        popupMarkers.push({ place, marker });
+        setMarkerAccessibility(marker, place);
         if (usePopupMap) {
           marker.bindPopup(createPlacePopup(place), {
             closeButton: true,
-            maxWidth: isMobileMap ? 190 : 240,
-            minWidth: isMobileMap ? 145 : 180,
+            maxWidth: isMobileMap ? 170 : 240,
+            minWidth: isMobileMap ? 130 : 180,
             autoPan: false,
             closeOnClick: true,
             autoClose: true,
@@ -402,10 +448,11 @@ content.favoriting.items.forEach((item) => {
           }
           marker.on("click", () => {
             leafletMap.closePopup();
+            setSelectedMarker(marker);
             marker.openPopup();
           });
-          marker.on("popupopen", () => marker.getElement()?.classList.add("is-active"));
-          marker.on("popupclose", () => marker.getElement()?.classList.remove("is-active"));
+          marker.on("popupopen", () => setSelectedMarker(marker));
+          marker.on("popupclose", () => clearSelectedMarker(marker));
         } else {
           marker.on("click", () => showPlace(place, marker.getElement()));
         }
@@ -421,6 +468,14 @@ content.favoriting.items.forEach((item) => {
       window.setTimeout(() => {
         leafletMap.invalidateSize();
         leafletMap.fitBounds(activeDisplayBounds, { padding: [0, 0] });
+        popupMarkers.forEach(({ marker, place }) => setMarkerAccessibility(marker, place));
+        if (usePopupMap) {
+          const defaultPlace = popupMarkers.find(({ place }) => place.name === "San Diego, California");
+          if (defaultPlace) {
+            setSelectedMarker(defaultPlace.marker);
+            defaultPlace.marker.openPopup();
+          }
+        }
       }, 0);
     } else {
       map.append(createElement("p", "map-fallback", "Map unavailable. Places are listed here."));
