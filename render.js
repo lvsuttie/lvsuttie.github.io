@@ -29,6 +29,20 @@ function renderEntryLink(entryData) {
   return createElement("span", null, entryData.name);
 }
 
+function renderCaseDetail(detail) {
+  const paragraph = createElement("p", "case-detail");
+  const separatorIndex = detail.indexOf(":");
+
+  if (separatorIndex > -1) {
+    const label = createElement("strong", null, `${detail.slice(0, separatorIndex)}:`);
+    paragraph.append(label, document.createTextNode(` ${detail.slice(separatorIndex + 1).trim()}`));
+    return paragraph;
+  }
+
+  paragraph.textContent = detail;
+  return paragraph;
+}
+
 document.title = content.pageTitle;
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -76,36 +90,44 @@ content.building.cards
   .filter((card) => !card.hidden)
   .forEach((card) => {
   const article = createElement("article", "case-card");
-  article.append(createElement("p", "card-kicker", card.label));
+  if (card.imagePosition === "left") article.classList.add("image-left");
 
   if (card.image || card.reserveImageSpace) {
     article.classList.add("has-image");
     const imageWrap = createElement("div", "case-image");
-    if (card.imageFrame) imageWrap.classList.add(`${card.imageFrame}-frame`);
     if (!card.image) imageWrap.classList.add("empty-image");
     if (card.image) {
       const image = createElement("img");
       image.src = card.image;
       image.alt = card.imageAlt || `${card.title} image`;
-      imageWrap.append(image);
+      if (card.imageFrame) {
+        const imageFrame = createElement("div", `${card.imageFrame}-frame`);
+        imageFrame.append(image);
+        imageWrap.append(imageFrame);
+      } else {
+        imageWrap.append(image);
+      }
     }
     article.append(imageWrap);
   }
 
-  article.append(createElement("h3", null, card.title));
-  if (card.meta) article.append(createElement("p", "card-meta", card.meta));
-  article.append(createElement("p", null, card.description));
+  const copy = createElement("div", "case-copy");
+  copy.append(createElement("p", "card-kicker", card.label));
+  copy.append(createElement("h3", null, card.title));
+  if (card.meta) copy.append(createElement("p", "card-meta", card.meta));
+  copy.append(createElement("p", "case-description", card.description));
 
-  const list = createElement("ul");
-  card.details.forEach((detail) => list.append(createElement("li", null, detail)));
-  article.append(list);
+  const details = createElement("div", "case-details");
+  card.details.forEach((detail) => details.append(renderCaseDetail(detail)));
+  copy.append(details);
 
   const linkText = card.linkText.includes("→") ? card.linkText : `${card.linkText} →`;
   const link = createElement("a", null, linkText);
   link.className = "case-link";
   link.href = card.linkUrl;
   addExternalBehavior(link);
-  article.append(link);
+  copy.append(link);
+  article.append(copy);
 
   buildingCards.append(article);
 });
