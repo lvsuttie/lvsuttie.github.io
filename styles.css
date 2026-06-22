@@ -69,6 +69,7 @@ a {
   flex: 0 0 auto;
   place-items: center;
   border: 1px solid var(--line);
+  border-radius: 8px;
   background: var(--paper);
   color: var(--ink);
   overflow: hidden;
@@ -86,6 +87,7 @@ a {
   display: block;
   width: 100%;
   height: 100%;
+  border-radius: 8px;
   object-fit: cover;
 }
 
@@ -177,9 +179,9 @@ footer {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.42fr);
-  column-gap: 24px;
-  row-gap: 34px;
+  grid-template-columns: 1fr;
+  column-gap: 0;
+  row-gap: 24px;
   align-items: stretch;
   min-height: auto;
   padding: 24px 0 48px;
@@ -193,6 +195,21 @@ footer {
   padding: 0;
   border: 0;
   background: transparent;
+}
+
+.about-content {
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 65fr) minmax(0, 35fr);
+  gap: clamp(36px, 6vw, 56px);
+  align-items: start;
+  width: 100%;
+  max-width: 880px;
+}
+
+.about-body {
+  display: grid;
+  gap: 12px;
 }
 
 .eyebrow {
@@ -260,7 +277,7 @@ h3 {
 .about-accent {
   width: 52px;
   height: 3px;
-  margin: 0 0 24px;
+  margin: 0;
   border-radius: 999px;
   background: var(--avatar-yellow);
 }
@@ -280,11 +297,12 @@ h3 {
 }
 
 .snapshot {
-  grid-column: 2;
-  grid-row: 2;
+  grid-column: auto;
+  grid-row: auto;
   align-self: start;
   justify-self: end;
-  width: 100%;
+  width: min(100%, 360px);
+  margin-top: 48px;
   display: grid;
   gap: 0;
   padding: 0;
@@ -306,7 +324,7 @@ h3 {
   place-items: center;
   overflow: hidden;
   border: 0;
-  border-radius: 8px;
+  border-radius: 14px;
   background: transparent;
 }
 
@@ -315,7 +333,7 @@ h3 {
   width: 100%;
   height: 100%;
   min-height: 0;
-  border-radius: 8px;
+  border-radius: 14px;
   object-fit: cover;
   object-position: center;
 }
@@ -1146,23 +1164,23 @@ footer p {
   }
 
   .hero-copy,
-  .snapshot,
   h1 {
     grid-column: 1;
   }
 
   .hero-copy {
-    grid-row: 3;
-  }
-
-  .snapshot {
     grid-row: 2;
   }
 
+  .about-content {
+    grid-template-columns: minmax(0, 65fr) minmax(0, 35fr);
+    gap: 28px;
+  }
+
   .snapshot {
-    justify-self: start;
-    width: min(100%, 300px);
-    min-height: 280px;
+    justify-self: end;
+    width: 100%;
+    min-height: 0;
   }
 
 }
@@ -1233,6 +1251,12 @@ footer p {
     row-gap: 24px;
   }
 
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    max-width: none;
+  }
+
   .hero h1 {
     grid-column: 1 / -1;
   }
@@ -1264,23 +1288,16 @@ footer p {
   }
 
   .snapshot {
-    grid-column: 1;
-    grid-row: 3;
-    align-self: start;
-    justify-self: center;
-    width: min(56vw, 190px);
-    margin-top: 0;
-    margin-bottom: 0;
-    min-height: 0;
+    display: none;
   }
 
   .portrait-art {
     aspect-ratio: 1;
-    border-radius: 8px;
+    border-radius: 14px;
   }
 
   .portrait-art img {
-    border-radius: 8px;
+    border-radius: 14px;
   }
 
   .case-card {

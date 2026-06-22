@@ -94,19 +94,13 @@ document.querySelectorAll('[data-content="initials"]').forEach((element) => {
 });
 
 setText("#intro-title", content.introHeading);
+setText("#intro-subtitle", `${content.introStatement}${content.introStatement.endsWith(".") ? "" : "."}`);
 const introText = document.getElementById("intro-text");
-const introElements = [];
-if (content.introStatement) {
-  introElements.push(createElement("p", "about-statement", content.introStatement));
-  introElements.push(createElement("div", "about-accent"));
-}
 if (Array.isArray(content.introText)) {
-  introText.replaceWith(
-    ...introElements,
-    ...content.introText.map((paragraph) => createElement("p", "intro", paragraph)),
-  );
+  const paragraphs = content.introText.map((paragraph) => createElement("p", "intro", paragraph));
+  introText.replaceWith(...paragraphs);
 } else {
-  introText.replaceWith(...introElements, createElement("p", "intro", content.introText));
+  introText.textContent = content.introText;
 }
 
 const portrait = document.querySelector(".portrait-art");

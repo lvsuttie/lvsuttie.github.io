@@ -3,7 +3,7 @@ window.siteContent = {
   initials: "LS",
   pageTitle: "Laura Suttie | Product Leader in Fintech & Consumer Products",
   introHeading: "Hi, I’m Laura 👋",
-  introStatement: "Welcome to my corner of the internet",
+  introStatement: "Welcome to my corner of the internet.",
   introText: [
     "I’ve spent the last few years building consumer fintech and crypto products used by millions of people around the world. I like talking with users, experimenting, and learning what works (and what doesn't).",
     "Outside of work, I’m a new mom, getting back into running, and generally happiest when I’m learning something new. Lately, that's meant figuring out baby sleep, diving into AI and agents, and trying to make my baby laugh.",
