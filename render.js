@@ -62,18 +62,51 @@ updateHeaderState();
 window.addEventListener("scroll", updateHeaderState, { passive: true });
 window.addEventListener("resize", updateHeaderState);
 
+const nav = document.querySelector(".nav");
+const navMoreToggle = document.querySelector(".nav-more-toggle");
+if (nav && navMoreToggle) {
+  function closeNavMenu() {
+    nav.classList.remove("is-open");
+    navMoreToggle.setAttribute("aria-expanded", "false");
+  }
+
+  navMoreToggle.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const isOpen = nav.classList.toggle("is-open");
+    navMoreToggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  nav.querySelectorAll(".nav-more-menu a").forEach((link) => {
+    link.addEventListener("click", closeNavMenu);
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!nav.contains(event.target)) closeNavMenu();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeNavMenu();
+  });
+}
+
 document.querySelectorAll('[data-content="initials"]').forEach((element) => {
   element.textContent = content.initials;
 });
 
 setText("#intro-title", content.introHeading);
 const introText = document.getElementById("intro-text");
+const introElements = [];
+if (content.introStatement) {
+  introElements.push(createElement("p", "about-statement", content.introStatement));
+  introElements.push(createElement("div", "about-accent"));
+}
 if (Array.isArray(content.introText)) {
   introText.replaceWith(
+    ...introElements,
     ...content.introText.map((paragraph) => createElement("p", "intro", paragraph)),
   );
 } else {
-  setText("#intro-text", content.introText);
+  introText.replaceWith(...introElements, createElement("p", "intro", content.introText));
 }
 
 const portrait = document.querySelector(".portrait-art");
@@ -322,10 +355,14 @@ content.favoriting.items.forEach((item) => {
       if (place.links) {
         const list = createElement("div", "place-popup-links");
         place.links.forEach((entry) => {
-          const link = renderEntryLink({
-            ...entry,
-            name: `${entry.name} →`,
-          });
+          const link = createElement("a", "place-popup-link");
+          link.href = entry.url;
+          addExternalBehavior(link);
+          link.append(
+            createElement("span", "place-link-label", entry.name),
+            document.createTextNode(" "),
+            createElement("span", "place-link-arrow", "→"),
+          );
           list.append(link);
           if (entry.note) list.append(createElement("small", null, entry.note));
         });
@@ -361,9 +398,9 @@ content.favoriting.items.forEach((item) => {
       const activeDisplayBounds = isMobileMap ? mobileDisplayBounds : displayBounds;
       const leafletMap = L.map(map, {
         scrollWheelZoom: false,
-        dragging: false,
+        dragging: isMobileMap,
         doubleClickZoom: false,
-        touchZoom: false,
+        touchZoom: isMobileMap,
         boxZoom: false,
         keyboard: false,
         zoomSnap: 0.05,
@@ -382,8 +419,8 @@ content.favoriting.items.forEach((item) => {
       const markerIcon = L.divIcon({
         className: "leaflet-place-pin",
         html: '<span class="place-pin-dot" aria-hidden="true"></span>',
-        iconSize: [16, 16],
-        iconAnchor: [8, 8],
+        iconSize: [14, 14],
+        iconAnchor: [7, 7],
       });
 
       const popupMarkers = [];
@@ -436,11 +473,13 @@ content.favoriting.items.forEach((item) => {
         if (usePopupMap) {
           marker.bindPopup(createPlacePopup(place), {
             closeButton: true,
-            maxWidth: isMobileMap ? 170 : 240,
-            minWidth: isMobileMap ? 130 : 180,
-            autoPan: false,
+            maxWidth: isMobileMap ? 145 : 240,
+            minWidth: isMobileMap ? 118 : 180,
+            autoPan: true,
+            autoPanPadding: isMobileMap ? [40, 28] : [36, 32],
             closeOnClick: true,
             autoClose: true,
+            keepInView: true,
             className: "place-leaflet-popup",
           });
           if (window.matchMedia("(hover: hover)").matches) {
@@ -472,8 +511,12 @@ content.favoriting.items.forEach((item) => {
         if (usePopupMap) {
           const defaultPlace = popupMarkers.find(({ place }) => place.name === "San Diego, California");
           if (defaultPlace) {
-            setSelectedMarker(defaultPlace.marker);
-            defaultPlace.marker.openPopup();
+            window.setTimeout(() => {
+              setSelectedMarker(defaultPlace.marker);
+              defaultPlace.marker.openPopup();
+              const popup = defaultPlace.marker.getPopup();
+              if (popup && leafletMap.panInside) leafletMap.panInside(popup.getLatLng(), { padding: [48, 42] });
+            }, 120);
           }
         }
       }, 0);

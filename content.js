@@ -3,8 +3,9 @@ window.siteContent = {
   initials: "LS",
   pageTitle: "Laura Suttie | Product Leader in Fintech & Consumer Products",
   introHeading: "Hi, I’m Laura 👋",
+  introStatement: "Welcome to my corner of the internet",
   introText: [
-    "I’m a product person who’s spent the last few years building consumer fintech and crypto products used by millions of people around the world. I like talking with users, experimenting, learning what works (and what doesn't), and making complicated things feel simple and useful.",
+    "I’ve spent the last few years building consumer fintech and crypto products used by millions of people around the world. I like talking with users, experimenting, and learning what works (and what doesn't).",
     "Outside of work, I’m a new mom, getting back into running, and generally happiest when I’m learning something new. Lately, that's meant figuring out baby sleep, diving into AI and agents, and trying to make my baby laugh.",
     "This site is part portfolio, part experiment, part figuring out this new world of AI.",
     "I am happy you're here.",
@@ -126,7 +127,7 @@ window.siteContent = {
     items: [
       {
         title: "Books",
-        intro: "These are just a few of my favorites.",
+        intro: "I love to read. These are just a few of my favorites.",
         entries: [
           {
             name: "A Gentleman in Moscow",
@@ -195,7 +196,7 @@ window.siteContent = {
         map: true,
         mapStyle: "popup",
         intro:
-          "Places I’ve loved, returned to, or still think about.",
+          "Not a best-of list. Just places I love.",
         places: [
           {
             name: "Ciudad de Mexico, Mexico",
@@ -232,11 +233,11 @@ window.siteContent = {
             lng: -85.8371,
             links: [
               {
-                name: "Tama Farmers Market, Tamarindo, Costa Rica",
+                name: "Tama Farmers Market",
                 url: "https://maps.app.goo.gl/azK1rCG2M8rsEggc8",
               },
               {
-                name: "Pico Bistro Tamarindo",
+                name: "Pico Bistro",
                 url: "https://maps.app.goo.gl/k1Kv1BegqJaBBwWYA",
               },
               {
@@ -244,7 +245,7 @@ window.siteContent = {
                 url: "https://maps.app.goo.gl/fW3kae6ZPJ6Hf2Hs6",
               },
               {
-                name: "Lolas, Playa Avellana",
+                name: "Lolas",
                 url: "https://www.lolascostarica.com/",
               },
             ],

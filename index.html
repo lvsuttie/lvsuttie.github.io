@@ -44,7 +44,7 @@
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""
     >
-    <link rel="stylesheet" href="styles.css?v=126">
+    <link rel="stylesheet" href="styles.css?v=141">
   </head>
   <body>
     <header class="site-header">
@@ -55,8 +55,13 @@
         <a href="#about">About</a>
         <a href="#building">Building</a>
         <a href="#favoriting">Favoriting</a>
-        <a href="#speaking">Speaking</a>
-        <a href="#work-with-me">Contact</a>
+        <a class="nav-secondary" href="#speaking">Speaking</a>
+        <a class="nav-secondary" href="#work-with-me">Contact</a>
+        <button class="nav-more-toggle" type="button" aria-expanded="false" aria-controls="nav-more-menu">More</button>
+        <div class="nav-more-menu" id="nav-more-menu">
+          <a href="#speaking">Speaking</a>
+          <a href="#work-with-me">Contact</a>
+        </div>
       </nav>
     </header>
 
@@ -131,13 +136,13 @@
       <div class="footer-links" id="footer-links"></div>
     </footer>
 
-    <script src="content.js?v=65"></script>
+    <script src="content.js?v=72"></script>
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
     <script async src="https://tally.so/widgets/embed.js"></script>
-    <script src="render.js?v=67"></script>
+    <script src="render.js?v=75"></script>
   </body>
 </html>
