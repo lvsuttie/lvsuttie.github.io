@@ -1450,8 +1450,13 @@ footer p {
 }
 
 @media (max-width: 430px) {
+  .site-header {
+    overflow: visible;
+  }
+
   .nav {
     gap: 9px;
+    overflow: visible;
   }
 
   .nav a {
@@ -1464,6 +1469,11 @@ footer p {
 
   .nav-more-toggle {
     display: grid;
+  }
+
+  .nav-more-menu {
+    right: 0;
+    z-index: 1002;
   }
 
   .nav-more-menu a {
