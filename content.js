@@ -69,16 +69,19 @@ window.siteContent = {
     items: [
       {
         date: "2024",
-        event: "StableSummit EthCC",
+        event: "Stable Summit ETHCC",
         title: "Does Crypto UX have to be so bad?",
+        description:
+          "Why crypto products often feel unnecessarily difficult—and what product teams can do about it.",
         url: "https://www.youtube.com/watch?app=desktop&v=tphRb1mB7YU",
         thumbnail: "https://img.youtube.com/vi/tphRb1mB7YU/hqdefault.jpg",
       },
       {
         date: "2024",
         event: "SheFi Devcon Panel",
-        title:
-          "Break Up with your Bad UX! — Toxic Cycles, Design Challenges + IRL Implications",
+        title: "Break Up with your Bad UX!",
+        description:
+          "A discussion on recurring UX failures in crypto products and how teams can escape them.",
         url: "https://youtu.be/W_qvPRbk3MI?si=6uDSvZ9TYEBxhB3a&t=1",
         thumbnail: "https://img.youtube.com/vi/W_qvPRbk3MI/hqdefault.jpg",
       },

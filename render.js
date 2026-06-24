@@ -89,6 +89,38 @@ if (nav && navMoreToggle) {
   });
 }
 
+const navLinks = Array.from(document.querySelectorAll(".nav a[href^='#']"));
+const navSections = [...new Set(navLinks.map((link) => link.getAttribute("href")))]
+  .map((href) => document.querySelector(href))
+  .filter(Boolean);
+
+function updateNavCurrent() {
+  if (!navLinks.length || !navSections.length) return;
+  const offset = (header?.getBoundingClientRect().height || 0) + 24;
+  const pageBottom = window.scrollY + window.innerHeight;
+  const isNearBottom = pageBottom >= document.documentElement.scrollHeight - 4;
+  const currentSection = isNearBottom
+    ? navSections.at(-1)
+    : navSections.filter((section) => section.getBoundingClientRect().top <= offset).at(-1) ||
+      navSections[0];
+  const currentHref = `#${currentSection.id}`;
+
+  navLinks.forEach((link) => {
+    if (link.getAttribute("href") === currentHref) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+
+  const isSecondaryCurrent = ["#speaking", "#work-with-me"].includes(currentHref);
+  navMoreToggle?.classList.toggle("is-active", isSecondaryCurrent);
+}
+
+updateNavCurrent();
+window.addEventListener("scroll", updateNavCurrent, { passive: true });
+window.addEventListener("resize", updateNavCurrent);
+
 document.querySelectorAll('[data-content="initials"]').forEach((element) => {
   element.textContent = content.initials;
 });
@@ -161,33 +193,29 @@ content.building.cards
 
 const speakingList = document.getElementById("speaking-list");
 content.speaking.items.forEach((item) => {
-  const article = createElement("article");
+  const article = item.url ? createElement("a", "talk-card") : createElement("article", "talk-card");
+  if (item.url) {
+    article.href = item.url;
+    addExternalBehavior(article);
+    article.setAttribute("aria-label", `Watch ${item.title}`);
+  }
+
   if (item.thumbnail && item.url) {
     article.classList.add("has-thumbnail");
-    const mediaLink = createElement("a", "talk-thumbnail");
-    mediaLink.href = item.url;
-    addExternalBehavior(mediaLink);
-    mediaLink.setAttribute("aria-label", `Watch ${item.title}`);
+    const media = createElement("div", "talk-thumbnail");
 
     const image = createElement("img");
     image.src = item.thumbnail;
     image.alt = `${item.title} YouTube preview`;
     image.loading = "lazy";
-    mediaLink.append(image);
-    article.append(mediaLink);
+    media.append(image);
+    article.append(media);
   }
 
   const copy = createElement("div", "talk-copy");
   copy.append(createElement("span", null, `${item.event} · ${item.date}`));
   const heading = createElement("h3");
-  if (item.url) {
-    const link = createElement("a", null, item.title);
-    link.href = item.url;
-    addExternalBehavior(link);
-    heading.append(link);
-  } else {
-    heading.textContent = item.title;
-  }
+  heading.textContent = item.title;
   copy.append(heading);
   if (item.description) copy.append(createElement("p", null, item.description));
   article.append(copy);
@@ -497,22 +525,27 @@ content.favoriting.items.forEach((item) => {
         });
       }
 
+      function openDefaultPopup() {
+        if (!usePopupMap) return;
+        const defaultPlace = popupMarkers.find(({ place }) => place.name === "San Diego, California");
+        if (!defaultPlace) return;
+        setSelectedMarker(defaultPlace.marker);
+        defaultPlace.marker.openPopup();
+        const popup = defaultPlace.marker.getPopup();
+        if (popup && leafletMap.panInside) {
+          leafletMap.panInside(popup.getLatLng(), {
+            padding: isMobileMap ? [32, 64] : [48, 42],
+          });
+        }
+      }
+
       leafletMap.fitBounds(activeDisplayBounds, { padding: [0, 0] });
       window.setTimeout(() => {
         leafletMap.invalidateSize();
         leafletMap.fitBounds(activeDisplayBounds, { padding: [0, 0] });
         popupMarkers.forEach(({ marker, place }) => setMarkerAccessibility(marker, place));
-        if (usePopupMap) {
-          const defaultPlace = popupMarkers.find(({ place }) => place.name === "San Diego, California");
-          if (defaultPlace) {
-            window.setTimeout(() => {
-              setSelectedMarker(defaultPlace.marker);
-              defaultPlace.marker.openPopup();
-              const popup = defaultPlace.marker.getPopup();
-              if (popup && leafletMap.panInside) leafletMap.panInside(popup.getLatLng(), { padding: [48, 42] });
-            }, 120);
-          }
-        }
+        window.setTimeout(openDefaultPopup, 180);
+        window.setTimeout(openDefaultPopup, 420);
       }, 0);
     } else {
       map.append(createElement("p", "map-fallback", "Map unavailable. Places are listed here."));
