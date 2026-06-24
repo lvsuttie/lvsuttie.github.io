@@ -239,6 +239,7 @@ if (workWithMeContent && content.workWithMe) {
   content.workWithMe.areas.forEach((area) => areas.append(createElement("li", null, area)));
   areasPanel.append(areas);
 
+  const workActions = createElement("div", "work-actions");
   let contact;
   if (content.workWithMe.contactType === "tally") {
     contact = createElement("button", "work-contact", content.workWithMe.contactLabel);
@@ -264,7 +265,22 @@ if (workWithMeContent && content.workWithMe) {
     contact.type = "button";
     contact.disabled = true;
   }
-  invitation.append(contact);
+  contact.append(document.createTextNode(" →"));
+  workActions.append(contact);
+
+  const twitterLinkData = Array.isArray(content.links)
+    ? content.links.find((link) => link.label === "X" || /x\.com|twitter\.com/.test(link.url))
+    : null;
+  if (twitterLinkData?.url) {
+    const twitterLink = createElement("a", "work-contact work-contact-secondary");
+    twitterLink.href = twitterLinkData.url;
+    addExternalBehavior(twitterLink);
+    twitterLink.innerHTML =
+      '<svg class="work-contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2h3.3l-7.2 8.2L23.5 22h-6.6l-5.2-6.8L5.8 22H2.5l7.7-8.8L2 2h6.8l4.7 6.2L18.9 2Zm-1.2 17.9h1.8L7.8 4H5.9l11.8 15.9Z"/></svg><span>Follow me on X</span>';
+    workActions.append(twitterLink);
+  }
+
+  invitation.append(workActions);
   article.append(invitation, areasPanel);
 
   workWithMeContent.append(article);

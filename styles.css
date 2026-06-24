@@ -773,17 +773,24 @@ dd {
   text-transform: uppercase;
 }
 
+.work-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-self: end;
+  justify-self: start;
+}
+
 .work-contact {
   display: inline-flex;
-  align-self: end;
   align-items: center;
+  gap: 8px;
   min-height: 42px;
   margin-top: 2px;
   padding: 10px 16px;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--avatar-yellow);
   border-radius: 8px;
-  background: var(--paper);
-  justify-self: start;
+  background: var(--avatar-yellow);
   color: var(--ink);
   cursor: pointer;
   font-family: var(--font-sans);
@@ -792,10 +799,31 @@ dd {
   text-decoration: none;
 }
 
+.work-contact-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+}
+
 .work-contact:hover,
 .work-contact:focus-visible {
   background: var(--ink);
+  border-color: var(--ink);
   color: var(--paper);
+}
+
+.work-contact-secondary {
+  border-color: var(--line);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.work-contact-secondary:hover,
+.work-contact-secondary:focus-visible {
+  border-color: var(--avatar-yellow);
+  background: #fffefa;
+  color: var(--ink);
 }
 
 .work-contact:disabled {
