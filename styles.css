@@ -444,8 +444,17 @@ dd {
   background: #fffefa;
 }
 
+.case-card.is-clickable {
+  cursor: pointer;
+}
+
 .case-card:hover {
   border-color: #bda993;
+}
+
+.case-card.is-clickable:focus-visible {
+  outline: 2px solid var(--avatar-yellow);
+  outline-offset: 4px;
 }
 
 .case-card h3 {

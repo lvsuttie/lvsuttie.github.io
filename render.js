@@ -150,6 +150,31 @@ content.building.cards
   .forEach((card) => {
   const article = createElement("article", "case-card");
   if (card.imagePosition === "left") article.classList.add("image-left");
+  if (card.linkUrl && card.linkUrl !== "#") {
+    article.classList.add("is-clickable");
+    article.tabIndex = 0;
+    article.setAttribute("role", "link");
+    article.setAttribute("aria-label", `${card.title}. ${card.linkText}`);
+
+    const openCardLink = () => {
+      if (card.linkUrl.startsWith("http")) {
+        window.open(card.linkUrl, "_blank", "noopener");
+      } else {
+        window.location.href = card.linkUrl;
+      }
+    };
+
+    article.addEventListener("click", (event) => {
+      if (event.target.closest("a, button")) return;
+      openCardLink();
+    });
+
+    article.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      openCardLink();
+    });
+  }
 
   if (card.image || card.reserveImageSpace) {
     article.classList.add("has-image");
