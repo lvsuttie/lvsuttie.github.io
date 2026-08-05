@@ -457,15 +457,19 @@ content.favoriting.items.forEach((item) => {
         [-58, -180],
         [80, 180],
       ];
-      const isMobileMap = window.matchMedia("(max-width: 560px)").matches;
+      const isMobileMap = window.matchMedia("(max-width: 760px)").matches;
       const activeDisplayBounds = isMobileMap ? mobileDisplayBounds : displayBounds;
+      const fitOptions = {
+        padding: isMobileMap ? [8, 8] : [0, 0],
+        animate: false,
+      };
       const leafletMap = L.map(map, {
         scrollWheelZoom: false,
-        dragging: isMobileMap,
+        dragging: true,
         doubleClickZoom: false,
-        touchZoom: isMobileMap,
+        touchZoom: true,
         boxZoom: false,
-        keyboard: false,
+        keyboard: true,
         zoomSnap: 0.05,
         zoomDelta: 0.25,
         zoomControl: false,
@@ -482,12 +486,13 @@ content.favoriting.items.forEach((item) => {
       const markerIcon = L.divIcon({
         className: "leaflet-place-pin",
         html: '<span class="place-pin-dot" aria-hidden="true"></span>',
-        iconSize: [14, 14],
-        iconAnchor: [7, 7],
+        iconSize: [10, 10],
+        iconAnchor: [5, 5],
       });
 
       const popupMarkers = [];
       let activePopupMarker = null;
+      let openedFromHover = false;
 
       function getPlaceLabel(place) {
         return `View places in ${place.name.replace(/,.*$/, "")}.`;
@@ -517,6 +522,19 @@ content.favoriting.items.forEach((item) => {
         element?.setAttribute("aria-current", "true");
       }
 
+      function getPopupOffset(place) {
+        const horizontalOffset = isMobileMap ? 72 : 24;
+        const verticalOffset = isMobileMap ? 12 : 0;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        if (place.lng < -95) offsetX = horizontalOffset;
+        if (place.lng > 110) offsetX = -horizontalOffset;
+        if (place.lat < -35) offsetY = -verticalOffset;
+
+        return L.point(offsetX, offsetY);
+      }
+
       function clearSelectedMarker(marker) {
         if (activePopupMarker !== marker) return;
         const element = marker.getElement();
@@ -536,24 +554,37 @@ content.favoriting.items.forEach((item) => {
         if (usePopupMap) {
           marker.bindPopup(createPlacePopup(place), {
             closeButton: true,
-            maxWidth: isMobileMap ? 145 : 240,
-            minWidth: isMobileMap ? 118 : 180,
-            autoPan: true,
+            maxWidth: isMobileMap ? 170 : 240,
+            minWidth: isMobileMap ? 128 : 180,
+            offset: getPopupOffset(place),
+            autoPan: false,
             autoPanPadding: isMobileMap ? [40, 28] : [36, 32],
             closeOnClick: true,
             autoClose: true,
-            keepInView: true,
+            keepInView: false,
             className: "place-leaflet-popup",
           });
           if (window.matchMedia("(hover: hover)").matches) {
-            marker.on("mouseover", () => marker.openPopup());
+            marker.on("mouseover", () => {
+              openedFromHover = true;
+              marker.openPopup();
+            });
           }
           marker.on("click", () => {
+            openedFromHover = false;
             leafletMap.closePopup();
             setSelectedMarker(marker);
             marker.openPopup();
+            keepOpenPopupVisible();
           });
-          marker.on("popupopen", () => setSelectedMarker(marker));
+          marker.on("popupopen", () => {
+            setSelectedMarker(marker);
+            if (openedFromHover) {
+              openedFromHover = false;
+            } else {
+              keepOpenPopupVisible();
+            }
+          });
           marker.on("popupclose", () => clearSelectedMarker(marker));
         } else {
           marker.on("click", () => showPlace(place, marker.getElement()));
@@ -570,24 +601,67 @@ content.favoriting.items.forEach((item) => {
         if (!usePopupMap) return;
         const defaultPlace = popupMarkers.find(({ place }) => place.name === "San Diego, California");
         if (!defaultPlace) return;
+        fitMapToWorld();
         setSelectedMarker(defaultPlace.marker);
         defaultPlace.marker.openPopup();
-        const popup = defaultPlace.marker.getPopup();
-        if (popup && leafletMap.panInside) {
-          leafletMap.panInside(popup.getLatLng(), {
-            padding: isMobileMap ? [32, 64] : [48, 42],
-          });
-        }
+        keepOpenPopupVisible();
       }
 
-      leafletMap.fitBounds(activeDisplayBounds, { padding: [0, 0] });
-      window.setTimeout(() => {
-        leafletMap.invalidateSize();
-        leafletMap.fitBounds(activeDisplayBounds, { padding: [0, 0] });
+      function fitMapToWorld() {
+        leafletMap.invalidateSize({ pan: false });
+        leafletMap.fitBounds(activeDisplayBounds, fitOptions);
+      }
+
+      function keepOpenPopupVisible() {
+        const adjustPopup = () => {
+          const popup = map.querySelector(".leaflet-popup");
+          if (!popup) return;
+          const mapRect = map.getBoundingClientRect();
+          const popupRect = popup.getBoundingClientRect();
+          const padding = isMobileMap ? 12 : 16;
+          let panX = 0;
+          let panY = 0;
+
+          if (popupRect.left < mapRect.left + padding) {
+            panX = popupRect.left - mapRect.left - padding;
+          } else if (popupRect.right > mapRect.right - padding) {
+            panX = popupRect.right - mapRect.right + padding;
+          }
+
+          if (popupRect.top < mapRect.top + padding) {
+            panY = popupRect.top - mapRect.top - padding;
+          } else if (popupRect.bottom > mapRect.bottom - padding) {
+            panY = popupRect.bottom - mapRect.bottom + padding;
+          }
+
+          if (panX || panY) {
+            leafletMap.panBy([panX, panY], { animate: false });
+          }
+        };
+
+        window.requestAnimationFrame(adjustPopup);
+        window.setTimeout(adjustPopup, 80);
+      }
+
+      fitMapToWorld();
+      const settleMap = () => {
+        fitMapToWorld();
         popupMarkers.forEach(({ marker, place }) => setMarkerAccessibility(marker, place));
-        window.setTimeout(openDefaultPopup, 180);
-        window.setTimeout(openDefaultPopup, 420);
-      }, 0);
+      };
+
+      window.requestAnimationFrame(() => {
+        settleMap();
+        window.setTimeout(settleMap, 120);
+        window.setTimeout(openDefaultPopup, 260);
+        window.setTimeout(openDefaultPopup, 620);
+      });
+
+      if (window.ResizeObserver) {
+        const mapResizeObserver = new ResizeObserver(() => {
+          window.requestAnimationFrame(settleMap);
+        });
+        mapResizeObserver.observe(map);
+      }
     } else {
       map.append(createElement("p", "map-fallback", "Map unavailable. Places are listed here."));
       item.places.forEach((place) => {
